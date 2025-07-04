@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Painel Administrativo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fcefe3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCgbcNRGeeo6cxx85MqvF-MB8recucuRyo",
+      authDomain: "natalfucf.firebaseapp.com",
+      projectId: "natalfucf",
+      storageBucket: "natalfucf.appspot.com",
+      messagingSenderId: "695197434950",
+      appId: "1:695197434950:web:fb8879afa4fa51b3fa7647",
+      measurementId: "G-RBKZ3JSKJW"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    function loginUsuario() {
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+      const errorEl = document.getElementById('error-message');
+      firebase.auth().signInWithEmailAndPassword(email, senha)
+        .then(() => {
+          window.location.href = "admin.html"; // redireciona para o painel
+        })
+        .catch((error) => {
+          errorEl.textContent = "Email ou senha incorretos.";
+        });
+    }
+  </script>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login do Administrador</h2>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="senha" placeholder="Senha" required>
+    <button onclick="loginUsuario()">Entrar</button>
+    <div id="error-message"></div>
+  </div>
+</body>
+</html>
